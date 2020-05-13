@@ -124,7 +124,8 @@ class GridlineTickDrawStrategy<D> extends BaseTickDrawStrategy<D> {
       @required Rectangle<int> axisBounds,
       @required Rectangle<int> drawAreaBounds,
       @required bool isFirst,
-      @required bool isLast}) {
+      @required bool isLast,
+      @required bool isDrawText}) {
     Point<num> lineStart;
     Point<num> lineEnd;
     switch (orientation) {

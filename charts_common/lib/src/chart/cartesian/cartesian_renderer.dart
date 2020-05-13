@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:developer';
+
 import 'package:meta/meta.dart';
 
 import '../../common/symbol_renderer.dart' show SymbolRenderer;

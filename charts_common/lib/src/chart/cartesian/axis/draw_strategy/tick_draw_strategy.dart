@@ -52,7 +52,8 @@ abstract class TickDrawStrategy<D> {
       @required Rectangle<int> axisBounds,
       @required Rectangle<int> drawAreaBounds,
       @required bool isFirst,
-      @required bool isLast});
+      @required bool isLast,
+      @required bool isDrawText});
 
   void drawAxisLine(ChartCanvas canvas, AxisOrientation orientation,
       Rectangle<int> axisBounds);

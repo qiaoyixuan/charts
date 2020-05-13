@@ -126,7 +126,8 @@ class SmallTickDrawStrategy<D> extends BaseTickDrawStrategy<D> {
       @required Rectangle<int> axisBounds,
       @required Rectangle<int> drawAreaBounds,
       @required bool isFirst,
-      @required bool isLast}) {
+      @required bool isLast,
+      @required bool isDrawText}) {
     Point<num> tickStart;
     Point<num> tickEnd;
     switch (orientation) {
@@ -162,11 +163,13 @@ class SmallTickDrawStrategy<D> extends BaseTickDrawStrategy<D> {
       strokeWidthPx: lineStyle.strokeWidth.toDouble(),
     );
 
-    drawLabel(canvas, tick,
-        orientation: orientation,
-        axisBounds: axisBounds,
-        drawAreaBounds: drawAreaBounds,
-        isFirst: isFirst,
-        isLast: isLast);
+    if (isDrawText) {
+      drawLabel(canvas, tick,
+          orientation: orientation,
+          axisBounds: axisBounds,
+          drawAreaBounds: drawAreaBounds,
+          isFirst: isFirst,
+          isLast: isLast);
+    }
   }
 }

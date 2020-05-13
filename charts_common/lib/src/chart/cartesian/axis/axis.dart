@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:developer';
 import 'dart:math' show Rectangle, min, max;
 
 import 'package:meta/meta.dart' show protected, visibleForTesting;
@@ -519,15 +520,26 @@ abstract class Axis<D> extends ImmutableAxis<D> implements LayoutView {
       _axisTicks.removeWhere((t) => t.markedForRemoval);
     }
 
+    bool isPrevDrawed = true;
     for (var i = 0; i < _axisTicks.length; i++) {
       final animatedTick = _axisTicks[i];
+      bool isDrawText = true;
+      if (tickDrawStrategy is SmallTickDrawStrategy && isPrevDrawed && i != 0) {
+        double prevTickLocationX = _axisTicks[i - 1].locationPx;
+        double prevTickWidth = _axisTicks[i - 1].textElement.measurement.horizontalSliceWidth;
+        double prevTickRight = prevTickLocationX + prevTickWidth;
+        bool isOverlapped = animatedTick.locationPx < prevTickRight;
+        isDrawText = !isOverlapped;
+      }
       tickDrawStrategy.draw(
           canvas, animatedTick..setCurrentTick(animationPercent),
           orientation: axisOrientation,
           axisBounds: _componentBounds,
           drawAreaBounds: _drawAreaBounds,
           isFirst: i == 0,
-          isLast: i == _axisTicks.length - 1);
+          isLast: i == _axisTicks.length - 1,
+          isDrawText: isDrawText);
+      isPrevDrawed = isDrawText;
     }
 
     if (drawAxisLine) {
